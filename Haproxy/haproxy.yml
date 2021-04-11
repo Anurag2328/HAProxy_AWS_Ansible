@@ -1,0 +1,41 @@
+#Launch Backend Servers
+- hosts: tag_Name_Backendserver
+  tasks:
+  - package:
+      name:
+      - "httpd"
+      - "php"
+      - "net-tools"
+      state: present
+
+  - template:
+      dest: "/var/www/html/index.php"
+      src: "index.php"
+    notify: web
+
+  handlers:
+  - name: web
+    service:
+      name: "httpd"
+      state: restarted
+      enabled: yes
+  
+# Launch Load Balancer
+
+- hosts: tag_Name_LoadBalancer
+  tasks:
+  - package:
+      name: "haproxy"
+      state: present
+
+  - template:
+      dest: "/etc/haproxy/haproxy.cfg"
+      src: "haproxy.cfg"
+    notify: lb
+
+  handlers:
+  - name: lb
+    service:
+      name: "haproxy"
+      state: restarted
+      enabled: yes

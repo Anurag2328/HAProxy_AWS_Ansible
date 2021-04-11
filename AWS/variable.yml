@@ -1,0 +1,10 @@
+region: ap-south-1
+instance_type: t2.micro
+image: ami-0bcf5425cdc1d8a85
+vpc_subnet_id: subnet-783d6b34
+group_name: myaws12
+webserver_key_name: aws_cool
+webserver_count: 2
+
+loadbalancer_key_name: aws_cool
+loadbalancer_count: 1
